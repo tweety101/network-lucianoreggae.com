@@ -1,0 +1,55 @@
+---
+layout: layouts/base.njk
+templateClass: tmpl-post
+---
+<article class="max-w-3xl mx-auto px-5 py-2">
+<header>
+  <nav class="breadcrumb" aria-labelledby="breadcrumb">
+      <h2 class="sr-only" id="breadcrumb">Breadcrumbs: </h2>
+      <p class="font-sans text-lg">
+          <a href="/">Home</a>
+          <span class="text-cyan-700 font-bold"> » </span>  
+          {% if tags %}
+              {% for tag in displayTags %}
+              {% set tagUrl = "/tags/" + tag + "/" %}
+                  <a class="" href="{{ tagUrl | url }}">{{ tag }}</a>
+              {% endfor %}
+          {% endif %}
+          <span class="text-cyan-700 font-bold"> » </span>  
+          <span>{{ eleventyNavigation.key if eleventyNavigation.key else title }}</span>
+      </p>
+  </nav>
+
+  <h1 class="text-5xl mt-1">{{ title }}</h1>
+  <div class="flex mt-4">
+    <p>Updated 
+      <time datetime="{{ page.date | htmlDateString }}">{{ page.date | fromNow }}</time>, by {{metadata.author.name}}</p>
+
+  </div>
+</header>
+{% if featuredImage %}
+<div class="mt-6">
+  {% image featuredImage, title, "(min-width: 760px) 50vw, (min-width: 1024px) 30vw, 100vw" %}
+</div>
+{% endif %}
+
+
+<div class="mt-6 prose prose-xl max-w-none">
+  {{ content | safe }}
+</div>
+<footer>
+  <nav>
+    <ul class="flex justify-between mt-8 text-lg">
+      {%- set nextPost = collections.posts | getNextCollectionItem(page) %}
+      {%- if nextPost %}<li class="flex flex-col"><span>Next:</span>  
+        <a  href="{{ nextPost.url | url }}" class="text-cyan-700 font-bold">{{ nextPost.data.title }}</a></li>{% endif %}
+      {%- set previousPost = collections.posts | getPreviousCollectionItem(page) %}
+      {%- if previousPost %}<li class="flex flex-col"><span>Previous:</span>  
+        <a href="{{ previousPost.url | url }}" class="text-cyan-700 font-bold">{{ previousPost.data.title }}</a></li>{% endif %}
+    </ul>
+  </nav>
+</footer>
+
+</article>
+
+

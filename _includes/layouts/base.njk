@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en" class="antialiased text-blueGray-900 font-serif">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% if title !== 'false' %}
+    <title>{{ title or metadata.title }}</title>
+    {% endif %}
+    <link rel="stylesheet" href="{{ '/style.css' | url }}">
+    <link rel="alternate" href="{{ metadata.feed.path | url }}" type="application/atom+xml" title="{{ metadata.title }}">
+    <link rel="alternate" href="{{ metadata.jsonfeed.path | url }}" type="application/json" title="{{ metadata.title }}">
+    <script src="/js/alpine.js?v={% version %}" defer></script>
+    {% include 'seo.njk' %}
+
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <header id="masthead" class="site-header" x-data="{ menuOpen: false }">
+
+      <div id="site-navigation" x-on:click="menuOpen = true" class="fixed bottom-0 right-0 z-50 md:bottom-auto md:top-0 mr-4 mt-5 mb-5">
+          <button aria-label="open navigation" aria-modal="true" id="nav_button"  style="width: 55px; height: 55px"
+              class="bg-cyan-500  p-2 rounded-full shadow-lg text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
+                </svg>
+          </button>
+
+          <nav id="nav_menu" class="absolute bottom-16 right-0 md:bottom-auto md:top-16 bg-cyan-500 w-60 rounded-md p-5 text-white transition-all" 
+          x-show="menuOpen" x-cloak x-on:click.away="menuOpen = false"
+          x-transition:enter="transition ease-out duration-200"
+          x-transition:enter-start="opacity-0 transform scale-90"
+          x-transition:enter-end="opacity-100 transform scale-100"
+          x-transition:leave="transition ease-in duration-200"
+          x-transition:leave-start="opacity-100 transform scale-100"
+          x-transition:leave-end="opacity-0 transform scale-90">
+              <span>Breadcrumb</span>
+              <hr class="my-2" />
+              <div class="text-xl font-sans">
+                <ul class="space-y-2">
+                  {%- for entry in collections.all | eleventyNavigation %}
+                  <li class="{% if entry.url == page.url %}text-blueGray-500{% endif %}"><a href="{{ entry.url | url }}">{{ entry.title }}</a></li>
+                  {%- endfor %}
+                </ul>
+                
+              </div>
+
+          </nav><!-- #site-navigation -->
+
+      </div>
+
+  </header>
+    
+
+    <main class="flex-1 w-full">
+
+      {{ content | safe }}
+    </main>
+
+    <footer class="mt-8 bg-blueGray-700 text-white py-8 px-4">
+      <div class="md:px-8 mt-6 max-w-7xl mx-auto md:grid md:grid-cols-2 md:gap-6">
+          <nav>
+              <h3 class="text-xl font-bold uppercase">latest Posts</h3>
+              <ul class="mt-4 space-y-2">
+                  {% for post in collections.posts %}
+                  {% if (loop.index <= 2) %} <li>
+                      <a href="{{ post.url | url }}">{{ post.data.title }}</a>
+                      </li>
+                      {% endif %}
+                      {% endfor %}
+              </ul>
+          </nav>
+          <nav>
+              <h3 class="text-xl font-bold uppercase">Pages</h3>
+              <ul class="mt-4 space-y-2">
+                {%- for entry in collections.all | eleventyNavigation %}
+                  <li class="{% if entry.url == page.url %}text-blueGray-500{% endif %}"><a href="{{ entry.url | url }}">{{ entry.title }}</a></li>
+                {%- endfor %}
+              </ul>
+          </nav>
+      </div>
+  </footer>
+
+    <!-- Current page: {{ page.url | url }} -->
+  </body>
+</html>

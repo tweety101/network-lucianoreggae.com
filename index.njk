@@ -1,0 +1,14 @@
+---
+title: Lucianoreggae - Where Music Meets Tradition
+layout: layouts/collection.njk
+eleventyNavigation:
+  key: Home
+  order: 1
+description: Music is live
+---
+<h1 class="text-3xl mt-4 mb-4">Welcome to Lucianoreggae.com</h1>
+{% set postslist = collections.posts | head(-6) %}
+{% set postslistCounter = collections.posts | length %}
+{% include "postslist.njk" %}
+
+

@@ -1,0 +1,103 @@
+{% set fullPageUrl = metadata.url + page.url %}
+{% set sharingImageUrl = metadata.url + '/' + featuredImage %}
+
+{% if description %}
+    <meta name="description" content="{{ description}}">
+{% endif %}
+
+<meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large">
+<link rel="canonical" href="{{ fullPageUrl }}">
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="{{ title }}">
+<meta property="og:description" content="{{ description }}">
+<meta property="og:url" content="{{ fullPageUrl }}">
+<meta property="og:site_name" content="{{ siteSettings.seo.siteName }}">
+<meta property="og:image" content="{{ sharingImageUrl  }}">
+<meta property="og:image:width" content="2000">
+<meta property="og:image:height" content="1335">
+<meta property="og:image:alt" content="{{ title }}">
+<meta property="og:image:type" content="image/jpeg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ title }}">
+<meta name="twitter:description" content="{{ description }}">
+<meta name="twitter:image" content="{{ sharingImageUrl }}">
+<script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@graph": [
+        {
+            "@type": "Organization",
+            "@id": "{{ metadata.url }}/#company",
+            "name": "{{ metadata.title }}",
+            "logo": {
+                "@type": "ImageObject",
+                "url": false
+            }
+        },
+        {
+            "@type": "WebSite",
+            "@id": "{{ metadata.url }}/#website",
+            "url": "{{ metadata.url }}",
+            "name": "{{ metadata.title }}",
+            "publisher": {
+                "@id": "{{ metadata.url }}/#company"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": "{{ metadata.url }}/?s={search_term_string}",
+                "query-input": "required name=search_term_string"
+            }
+        },
+        {
+            "@type": "ImageObject",
+            "@id": "{{ fullPageUrl }}#primaryImage",
+            "url": "{{ sharingImageUrl }}",
+            "width": 2000,
+            "height": 1335
+        },
+        {
+            "@type": "WebPage",
+            "@id": "{{ sharingImageUrl }}/#webpage",
+            "url": "{{ sharingImageUrl }}",
+            "name": "{{ title }}",
+            "datePublished": "{{ page.date.toISOString()  }}",
+            "dateModified": "{{ page.date.toISOString()  }}",
+            "isPartOf": {
+                "@id": "{{ metadata.url }}/#website"
+            },
+            "primaryImageOfPage": {
+                "@id": "{{ fullPageUrl }}#primaryImage"
+            },
+            "inLanguage": "en-US",
+            "breadcrumb": {
+                "@id": "{{ fullPageUrl }}#breadcrumb"
+            }
+        },
+        {
+            "@type": "{{ pageType }}",
+            "headline": "{{ title }}",
+            "datePublished": "{{ page.date.toISOString()  }}",
+            "dateModified": "{{ page.date.toISOString()  }}",
+            "author": {
+                "@type": "Person",
+                "name": "{{ siteSettings.author.name }}"
+            },
+            "publisher": {
+                "@id": "{{ metadata.url }}/#company"
+            },
+            "description": "{{ description }}",
+            "@id": "{{ fullPageUrl }}#richSnippet",
+            "isPartOf": {
+                "@id": "{{ fullPageUrl }}#webpage"
+            },
+            "image": {
+                "@id": "{{ fullPageUrl }}#primaryImage"
+            },
+            "inLanguage": "en-US",
+            "mainEntityOfPage": {
+                "@id": "{{ fullPageUrl }}#webpage"
+            }
+        }
+    ]
+}</script>

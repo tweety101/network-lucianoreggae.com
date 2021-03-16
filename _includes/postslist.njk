@@ -1,0 +1,37 @@
+<div class="md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-6">
+  {% for post in postslist %}
+  <article id="" class="mb-7 md:mb-0 md:shadow-xl rounded-md relative pb-14">
+    <a class="block h-56" href="{{  post.url | url }}" aria-hidden="true" tabindex="-1">
+
+      {% image post.data.featuredImage, post.data.title, "(min-width: 760px) 50vw, (min-width: 1024px) 30vw, 100vw" %}
+    </a>
+    <div class="px-4 py-2 flex flex-col">
+      <div class="text-red-700 mt-2">
+        {% for tag in post.data.tags %}
+        {% if tag !== 'posts' %}
+        {% set tagUrl = "/tags/" + tag + "/" %}
+        <a class="no-underline font-sans text-lg text-cyan-700" href="{{ tagUrl | url }}">{{ tag }}</a>
+        {% endif %}
+        {% endfor %}
+      </div>
+      <h2 class="entry-title text-3xl font-bold font-serif text-cyan-900 mt-3"><a href="{{ post.url | url }}"
+          rel="bookmark">{{
+          post.data.title }}</a></h2>
+      <div class="mt-3 flex-1 flex items-end text-gray-600 font-sans text-lg">
+        {{ post.data.page.excerpt | truncate(100) }}
+      </div>
+      <div class="absolute inset-x-3 bottom-3">
+        <p>Updated
+          <time datetime="{{ post.data.page.date | htmlDateString }}">{{ post.data.page.date | fromNow }}</time>, by
+          {{metadata.author.name}}
+        </p>
+
+      </div>
+
+    </div>
+
+
+  </article>
+  {% endfor %}
+
+</div>

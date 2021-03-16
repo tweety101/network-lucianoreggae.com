@@ -1,0 +1,46 @@
+
+[[redirects]]
+  from = "/miscellaneous/usn_manual.htm"
+  to = "/us-navy-diving-manual/"
+  status = 301
+
+[[redirects]]
+  from = "/usn/USN.ZIP"
+  to = "/us-navy-diving-manual/"
+  status = 301
+
+[[redirects]]
+  from = "/usn/Chap03.pdf"
+  to = "/us-navy-diving-manual/chap03/"
+  status = 301
+
+[[redirects]]
+  from = "/usn/Chap19.pdf"
+  to = "/us-navy-diving-manual/chap19/"
+  status = 301
+  
+[[redirects]]
+  from = "/usn/Contents.pdf"
+  to = "/us-navy-diving-manual/"
+  status = 301
+
+[[redirects]]
+  from = "/local_diving/ld_beach.htm"
+  to = "/diving-sites/florida-beach/"
+  status = 301
+
+[[redirects]]
+  from = "/local_diving/ld_rec.htm"
+  to = "/diving-sites/florida-beach/"
+  status = 301
+
+[[redirects]]
+  from = "/padi_scuba/pa_sc_door.htm"
+  to = "/why-padi/"
+  status = 301
+
+[[redirects]]
+  from = "/*"
+  to = "/"
+  status = 301
+  conditions = {status = [404]}

@@ -1,0 +1,48 @@
+---
+layout: layouts/base.njk
+type: post
+title: false
+---
+
+<div class="h-screen flex flex-col md:flex-row relative">
+    <aside class="h-40 md:h-full md:static md:w-64 bg-gray-200 py-6 flex flex-col overflow-y-scroll">
+        <div class="mb-6 px-4">
+            <nav class="breadcrumb" aria-labelledby="breadcrumb">
+                <h2 class="sr-only" id="breadcrumb">Breadcrumbs: </h2>
+                <p class="font-sans text-lg">
+                    <a href="/">Home</a> 
+                    {% set crumbs = collections.all | eleventyNavigationBreadcrumb(eleventyNavigation.key) %}
+                    {% for crumb in crumbs %}
+                    <span class="text-cyan-700 font-bold"> » </span>  
+                    <span></span>  <a href="{{ crumb.url }}">{{ crumb.key }}</a>
+                    {% endfor %}
+
+                    <span class="text-cyan-700 font-bold"> » </span>  
+                    <span>{{ eleventyNavigation.key if eleventyNavigation.key else title }}</span>
+                </p>
+            </nav>
+
+        </div>
+            <h2 class="font-bold mb-6 px-4">Table of Contents</h2>
+            <div class="space-y-1 font-sans">
+                <a class="block px-4 py-2 {% if page.url === '/usn-manual/' %}bg-teal-600 text-white{% endif %}"
+                    href="/us-navy-diving-manual">Overview & Outline</a>
+                {% set chapters = collections.all | eleventyNavigation("US Navy Diving Manual") %}
+                {% for chapter in chapters %}
+                <a class="block px-4 py-2 {% if chapter.url === page.url %}bg-teal-600 text-white{% endif %}"
+                    href="{{ chapter.url | url }}">{{ chapter.title }}</a>
+
+                {% endfor %}
+
+        </div>
+        
+    </aside>
+
+    
+
+    <div class="flex-1 relative md:h-screen w-full prose prose-lg px-6 py-10 max-w-none overflow-y-scroll">
+        
+        {{ content | safe }}
+        
+    </div>
+</div>

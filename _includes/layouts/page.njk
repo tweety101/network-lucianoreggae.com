@@ -1,0 +1,35 @@
+---
+layout: layouts/base.njk
+templateClass: tmpl-post
+---
+<article class="max-w-3xl mx-auto px-5 py-2">
+<header>
+  <nav class="breadcrumb" aria-labelledby="breadcrumb">
+      <h2 class="sr-only" id="breadcrumb">Breadcrumbs: </h2>
+      <p class="font-sans text-lg">
+          <a href="/">Home</a>
+          <span class="text-cyan-700 font-bold"> » </span>  
+          {% if tags %}
+              {% for tag in displayTags %}
+              {% set tagUrl = "/tags/" + tag + "/" %}
+                  <a class="" href="{{ tagUrl | url }}">{{ tag }}</a>
+              {% endfor %}
+              <span class="text-cyan-700 font-bold"> » </span> 
+          {% endif %}
+           
+          <span>{{ eleventyNavigation.key if eleventyNavigation.key else title }}</span>
+      </p>
+  </nav>
+
+  <h1 class="text-5xl mt-1">{{ title }}</h1>
+  
+</header>
+
+
+<div class="mt-6 prose prose-xl max-w-none">
+  {{ content | safe }}
+</div>
+
+</article>
+
+
