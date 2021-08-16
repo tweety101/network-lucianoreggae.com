@@ -4,6 +4,7 @@ description: Music carries us through our best and worst moments
 featuredImage: img/music-happiness.jpg
 tags:
   - Rant
+expand: true
 ---
 
 Music has carried me through my best and worst moments in life. When I was dancing my heart out on the beach at my wedding, it was the beat of EDM. 
